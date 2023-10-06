@@ -24,8 +24,7 @@ const renderElement = vnode => {
 }
 
 const render = (vnode, container) => {
-  container.innerHTML = ''  // Clear the container
-  container.appendChild(renderElement(vnode))
+  container.replaceChildren(renderElement(vnode))
 }
 
 export { createVNode, render }

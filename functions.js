@@ -1,9 +1,16 @@
+const { entries } = Object
 
 // Functional Wrappers
 const getById = id => document.getElementById(id)
+
+// Array Manipulation Functions
 const map = (arr, fn) => arr.map(fn)
 const filter = (arr, fn) => arr.filter(fn)
 const forEach = (arr, fn) => arr.forEach(fn)
+
+// String Manipulation Functions
+const substring = (str, ...args) => str.substring(...args)
+const toLowerCase = str => str.toLowerCase()
 
 // State Manipulation Functions
 const getInput = el => el.value
@@ -22,17 +29,12 @@ const append = (container, ...children) => container.append(...children)
 const replaceChildren = (container, ...children) => container.replaceChildren(...children)
 
 export {
+  entries,
   getById,
-  map,
-  filter,
-  forEach,
-  getInput,
-  emptyInput,
+  map, filter, forEach,
+  substring, toLowerCase,
+  getInput, emptyInput,
   removeByIndex,
-  createTextNode,
-  createElement,
-  addEventListener,
-  appendChild,
-  append,
-  replaceChildren
+  createTextNode, createElement, addEventListener,
+  appendChild, append, replaceChildren
 }

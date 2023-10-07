@@ -7,6 +7,9 @@ const getById = id => document.getElementById(id)
 const map = (arr, fn) => arr.map(fn)
 const filter = (arr, fn) => arr.filter(fn)
 const forEach = (arr, fn) => arr.forEach(fn)
+const concat = (arr, ...items) => arr.concat(items)
+const indexOf = (arr, item) => arr.indexOf(item)
+const splice = (arr, ...args) => arr.toSpliced(...args)
 
 // String Manipulation Functions
 const substring = (str, ...args) => str.substring(...args)
@@ -31,7 +34,7 @@ const replaceChildren = (container, ...children) => container.replaceChildren(..
 export {
   entries,
   getById,
-  map, filter, forEach,
+  map, filter, forEach, concat, indexOf, splice,
   substring, toLowerCase,
   getInput, emptyInput,
   removeByIndex,

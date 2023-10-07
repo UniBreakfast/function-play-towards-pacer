@@ -1,20 +1,24 @@
+import { forEach, concat, indexOf, splice } from './functions.js'
+
 // simple-store.js
 const createStore = (reducer, initialState) => {
   let state = initialState
-  const listeners = []
+  let listeners = []
 
   const getState = () => state
 
   const dispatch = action => {
     state = reducer(state, action)
-    listeners.forEach(listener => listener(state))
+    forEach(listeners, listener => listener(state))
   }
 
   const subscribe = listener => {
-    listeners.push(listener)
+    listeners = concat(listeners, listener)
+
     return () => {
-      const index = listeners.indexOf(listener)
-      listeners.splice(index, 1)
+      const index = indexOf(listeners, listener)
+      
+      listeners = splice(listeners, index, 1)
     }
   }
 

@@ -1,11 +1,9 @@
-import { 
-  createTextNode, 
-  createElement, 
-  addEventListener,
-  append, 
-  replaceChildren, 
-  forEach, 
-  map 
+import {
+  entries,
+  createTextNode, createElement, addEventListener,
+  append, replaceChildren,
+  forEach, map,
+  substring, toLowerCase
 } from './functions.js'
 
 const createVNode = (type, props = {}, ...children) => ({ type, props, children })
@@ -15,9 +13,10 @@ const renderElement = vnode => {
 
   const element = createElement(vnode.type)
 
-  forEach(Object.entries(vnode.props), ([key, value]) => {
+  forEach(entries(vnode.props), ([key, value]) => {
     if (key.startsWith('on')) {
-      addEventListener(element, key.substring(2).toLowerCase(), value)
+      const eventName = toLowerCase(substring(key, 2))
+      addEventListener(element, eventName, value)
     } else {
       element[key] = value
     }

@@ -18,8 +18,8 @@ const App = ({ items, onAddItem, onRemoveItem }) => createVNode(
   createVNode('input', { type: 'text', id: 'itemInput', placeholder: 'Type item here' }),
   createVNode('button', { onClick: onAddItem, textContent: 'Add' }),
   createVNode('ul', {}, ...map(
+    items,
     (text, index) => createListItem(text, () => onRemoveItem(index)),
-    items
   ))
 )
 
@@ -46,7 +46,8 @@ const update = (state) => {
 }
 
 // Create the store and destructure it
-const { getState, dispatch, subscribe } = createStore(reducer, { items: [] })
+const initialState = { items: [] }
+const { getState, dispatch, subscribe } = createStore(reducer, initialState)
 
 // Initial render
 update(getState())

@@ -1,43 +1,38 @@
-const { entries } = Object
+export {
+  doIf,
+  assign,
+  indexOf, concat, forEach, map, removeByIndex,
+  createElement, getById, 
+  append, replaceChildren, getValue, removeValue,
+}
 
-// Functional Wrappers
+const doIf = (cb, condition) => {
+  if (condition) cb()
+}
+
+const {assign} = Object
+
+const indexOf = (arr, item) => arr.indexOf(item)
+const concat = (arr, ...items) => arr.concat(items)
+const forEach = (arr, cb) => arr.forEach(cb)
+const filter = (arr, cb) => arr.filter(cb)
+const map = (arr, cb) => arr.map(cb)
+
+const removeByIndex = (arr, i) => {
+  return filter(arr, (_, index) => index != i)
+}
+
+const createElement = tagName => document.createElement(tagName)
 const getById = id => document.getElementById(id)
 
-// Array Manipulation Functions
-const map = (arr, fn) => arr.map(fn)
-const filter = (arr, fn) => arr.filter(fn)
-const forEach = (arr, fn) => arr.forEach(fn)
-const concat = (arr, ...items) => arr.concat(items)
-const indexOf = (arr, item) => arr.indexOf(item)
-const splice = (arr, ...args) => arr.toSpliced(...args)
-
-// String Manipulation Functions
-const substring = (str, ...args) => str.substring(...args)
-const toLowerCase = str => str.toLowerCase()
-
-// State Manipulation Functions
-const getInput = el => el.value
-const emptyInput = el => { el.value = '' }
-
-// Helper to remove item by index
-const removeByIndex = (arr, index) => 
-  filter(arr, (_, i) => i !== index)
-
-// Virtual DOM related functions
-const createTextNode = text => document.createTextNode(text)
-const createElement = type => document.createElement(type)
-const addEventListener = (element, event, fn) => element.addEventListener(event, fn)
-const appendChild = (element, child) => element.appendChild(child)
-const append = (container, ...children) => container.append(...children)
-const replaceChildren = (container, ...children) => container.replaceChildren(...children)
-
-export {
-  entries,
-  getById,
-  map, filter, forEach, concat, indexOf, splice,
-  substring, toLowerCase,
-  getInput, emptyInput,
-  removeByIndex,
-  createTextNode, createElement, addEventListener,
-  appendChild, append, replaceChildren
+const append = (element, ...children) => {
+  element.append(...children)
 }
+
+const replaceChildren = (element, ...children) => {
+  element.replaceChildren(...children)
+}
+
+const getValue = element => element.value
+const setValue = (element, value) => element.value = value
+const removeValue = element => setValue(element, '')

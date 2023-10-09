@@ -1,28 +1,30 @@
-import { forEach, concat, indexOf, splice } from './functions.js'
+export {createStore}
 
-// simple-store.js
-const createStore = (reducer, initialState) => {
+const createStore = (initialState, applyChange) => {
   let state = initialState
-  let listeners = []
+  let handlers = []
+  
+  const getCurrentState = () => state
 
-  const getState = () => state
+  const subscribeOnStateChange = handleFn => {
+    handlers = concat(handlers, handleFn)
 
-  const dispatch = action => {
-    state = reducer(state, action)
-    forEach(listeners, listener => listener(state))
-  }
-
-  const subscribe = listener => {
-    listeners = concat(listeners, listener)
-
-    return () => {
-      const index = indexOf(listeners, listener)
+    const unsubscribe = () => {
+      const i = indexOf(handlers, handleFn)
       
-      listeners = splice(listeners, index, 1)
+      handlers = removeByIndex(handlers, i)
     }
+
+    return unsubscribe
   }
 
-  return { getState, dispatch, subscribe }
+  const requestChange = requiredChange => {
+    state = applyChange(state, requiredChange)
+
+    forEach(handlers, handleFn => handleFn(state))
+  }
+  
+  return {getCurrentState, subscribeOnStateChange, requestChange}
 }
 
-export { createStore }
+import {forEach, concat, indexOf, removeByIndex} from './functions.js'

@@ -23,7 +23,7 @@ const emptyInput = el => { el.value = '' }
 const removeByIndex = (arr, index) => 
   filter(arr, (_, i) => i !== index)
 
-// Virtual DOM related functions
+// DOM related functions
 const createTextNode = text => document.createTextNode(text)
 const createElement = type => document.createElement(type)
 const addEventListener = (element, event, fn) => element.addEventListener(event, fn)

@@ -29,9 +29,9 @@ const formAppVTree = (state, handlerDict) => {
   const {items} = state
   const {handleAdd, handleRemove} = handlerDict
   const appProps = {}
-  const inputProps = {type: 'text', id: 'new-item', placeholder: 'type item here'}
-  const btnProps = {onclick: handleAdd, textContent: 'add'}
-  const listProps = {}
+  const inputProps = {type: 'text', id: 'new-item', placeholder: 'type item here', onkeydown: handleAdd, style: 'font:20px Trebuchet MS'}
+  const btnProps = {onclick: handleAdd, textContent: 'add', style: 'margin:10px'}
+  const listProps = {style: 'list-style:none'}
   const inputVNode = createVNode('input', inputProps)
   const btnVNode = createVNode('button', btnProps)
   const itemsVNodes = map(
@@ -44,8 +44,8 @@ const formAppVTree = (state, handlerDict) => {
 }
 
 const createItemVNode = (text, removeHandler) => {
-  const itemProps = { textContent: text }
-  const btnProps = {textContent: 'remove' , onclick: removeHandler}
+  const itemProps = { textContent: text, style: 'font:20px Trebuchet MS' }
+  const btnProps = {textContent: 'remove' , onclick: removeHandler, style: 'margin:10px'}
   const btnVNode = createVNode('button', btnProps)
   
   return createVNode('li', itemProps, btnVNode)
@@ -54,14 +54,14 @@ const createItemVNode = (text, removeHandler) => {
 const requireAdd = item => ({type: 'add', item})
 const requireRemove = i => ({type: 'remove', i})
 
-const handleAdd = () => {
+const handleAdd = e => {
   const input = getById('new-item')
   const value = getValue(input)
 
   doIf(() => {
     requestChange(requireAdd(value))
     removeValue(input)
-  }, value)
+  }, value && (e.target != input || e.key == 'Enter'))
 }
 
 const handleRemove = i => requestChange(requireRemove(i))

@@ -31,7 +31,7 @@ const formAppVTree = (state, handlerDict) => {
   const appProps = {}
   const inputProps = {type: 'text', id: 'new-item', placeholder: 'type item here'}
   const btnProps = {onclick: handleAdd, textContent: 'add'}
-  const listProps = {}
+  const listProps = {style: 'list-style:none'}
   const inputVNode = createVNode('input', inputProps)
   const btnVNode = createVNode('button', btnProps)
   const itemsVNodes = map(
